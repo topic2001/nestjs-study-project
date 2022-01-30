@@ -1,0 +1,282 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/.prisma/purrsongV3"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL_PURRSONG_V3")
+}
+
+model beaconConnectionLog {
+  id               BigInt         @id @default(autoincrement()) @db.UnsignedBigInt
+
+  @@index([lavviebotId], map: "FK_c3a3c36fb78fd80c4cdbb515cfd")
+}
+
+model bleErrorLog {
+  id           BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  creationTime DateTime @default(now()) @db.Timestamp(6)
+}
+
+model calorieLog {
+  id            BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([petId], map: "FK_7c7c454d5d6b050d894fe0c25a8")
+}
+
+model cat {
+  id                    Int            @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model catWeightLog {
+  id           BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([catId], map: "FK_catWeight_catId")
+}
+
+model deletedUser {
+  id                  Int        @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model device {
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model errorLog {
+  id            BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  creationTime  DateTime @default(now()) @db.Timestamp(6)
+}
+
+model faq {
+  id           Int      @id @default(autoincrement()) @db.UnsignedTinyInt
+  creationTime DateTime @default(now()) @db.Timestamp(6)
+  updateTime   DateTime @default(now()) @db.Timestamp(6)
+}
+
+model fatalLog {
+  id            BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  creationTime  DateTime @default(now()) @db.Timestamp(6)
+}
+
+model guideVideo {
+  id              Int      @id @default(autoincrement()) @db.UnsignedTinyInt
+  creationTime    DateTime @default(now()) @db.Timestamp(6)
+  updateTime      DateTime @default(now()) @db.Timestamp(6)
+}
+
+model healthKit {
+  id                Int               @id @default(autoincrement()) @db.UnsignedInt
+  @@index([petId], map: "healthKit_ibfk_1")
+  @@index([kitCode], map: "kitCode")
+}
+
+model healthKitCode {
+  creationTime DateTime    @default(now()) @db.Timestamp(0)
+  deletedTime  DateTime?   @db.Timestamp(0)
+}
+
+model healthKitResult {
+  id                         Int       @id @default(autoincrement()) @db.UnsignedInt
+  @@index([kitId], map: "healthKitResult_ibfk_1")
+}
+
+model iot {
+  id                 Int              @id @default(autoincrement()) @db.UnsignedInt
+
+  @@index([petId], map: "FK_1abd7679baa029b99c47445b7c6")
+  @@index([iotFirmwareGroupId], map: "FK_205bc9a036b01f4e445a39e36eb")
+  @@index([locationId], map: "FK_3576ac9c62d266c920cdb7d64f3")
+  @@index([iotCodeId], map: "FK_cf2741002366a85c67007dcac7a")
+}
+
+model iotCode {
+  iotCode            String           @id @db.Char(16)
+  @@index([iotFirmwareGroupId], map: "FK_933d9037a468d9aba767dc674c4")
+}
+
+model iotErrorLog {
+  id           BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([iotId], map: "FK_617c4603b1933c29ddb10003215")
+}
+
+model iotFailLog {
+  id           BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  creationTime DateTime @default(now()) @db.Timestamp(6)
+}
+
+model iotFirmware {
+  id              Int      @id @default(autoincrement()) @db.UnsignedInt
+  creationTime    DateTime @default(now()) @db.Timestamp(6)
+  updateTime      DateTime @default(now()) @db.Timestamp(6)
+}
+
+model iotFirmwareGroup {
+  id                    Int       @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model iotIpStack {
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model iotSchedule {
+  id                  BigInt                @id @default(autoincrement()) @db.UnsignedBigInt
+
+  @@index([iotId], map: "FK_35860c1f48fe3ac4caf61cb0214")
+}
+
+model iotScheduleCheckLog {
+  id            BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([iotScheduleId], map: "FK_93837be07f6b4a77583cafdf2a2")
+  @@index([userId], map: "FK_c5adaeab50e4b82aa7cdd4f0fad")
+}
+
+model isPurrsongOnlyLog {
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt
+  @@index([locationId], map: "FK_e265c88eabe3694386319e34645")
+}
+
+model lavvieScanner {
+  id               Int                @id @default(autoincrement()) @db.UnsignedInt
+  @@index([iotId], map: "iotId")
+}
+
+model lavvieScannerLog {
+  id                     Int           @id @default(autoincrement()) @db.UnsignedInt
+  @@index([lavvieScannerId], map: "lavvieScannerId")
+  @@index([lavvieTagId], map: "lavvieTagId")
+}
+
+model lavvieTag {
+  id                     Int                @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model lavvieTagLog {
+  id                     BigInt               @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([beaconConnectionLogId], map: "FK_1402ac00dbcfb53589cc3231b2c")
+  @@index([lavvieTagId], map: "FK_a3671b81e1c1cd580c94c77e7fc")
+}
+
+model lavvieTagValueTestLog {
+  id              BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  creationTime    DateTime @default(now()) @db.Timestamp(0)
+}
+
+model lavviebot {
+  id                  Int                   @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model lavviebotDupLog {
+  id           BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+}
+
+model lavviebotLitter {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([lavviebotId], map: "FK_b50606402cc64cfe729146d5453")
+}
+
+model lavviebotLog {
+  id                     BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([lavviebotId], map: "FK_32750e2e0af788079afd3d3c722")
+}
+
+model location {
+  id                   Int                    @id @default(autoincrement()) @db.UnsignedInt
+  @@index([deletedUserId], map: "FK_dc10e1f3f63248d0081e828fb3f")
+}
+
+model lostPet {
+  id             Int              @id @default(autoincrement()) @db.UnsignedInt
+  @@index([petId], map: "FK_c66cfedff56e2cc9fd07b8f0b3c")
+}
+
+model lostPetFindLog {
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt
+  @@index([lostPetId], map: "FK_738dcbf7cd45f80975e923d41f3")
+}
+
+model mobileConfig {
+  id                     Int      @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model notice {
+  id            Int             @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model noticeContent {
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt
+  @@index([noticeId], map: "FK_7dc39b13710aa470e44ae86c772")
+}
+
+model pet {
+  id                Int           @id @default(autoincrement()) @db.UnsignedInt
+  @@index([locationId], map: "FK_91cfc132ccb07b47ea06447c7c5")
+}
+
+model petSchedule {
+  id                  BigInt                @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([petId], map: "FK_b73baac78b7b235060e11c3c80d")
+}
+
+model petScheduleCheckLog {
+  id            BigInt        @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([userId], map: "FK_05ea1cabe540513dd8211b40060")
+  @@index([petScheduleId], map: "FK_b6a3858ed7598c3e2a0480e0447")
+}
+
+model poopLog {
+  id                       BigInt            @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([catId], map: "FK_a77c74a61c14e4585aceda5a208")
+  @@index([lavviebotId], map: "FK_d190e3d0263c3ab92808f48f16a")
+}
+
+model poopReferenceLog {
+  id                  BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+}
+
+model pushErrorLog {
+  id           BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([userId], map: "FK_736d505ca9699c2f6b9b071d0ff")
+}
+
+model pushLog {
+  id              BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([locationId], map: "FK_87c3671438334309f1c06cf86d7")
+}
+
+model successLog {
+  id            BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  creationTime  DateTime @default(now()) @db.Timestamp(6)
+}
+
+model supplements {
+  id                    BigInt              @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([petScheduleCheckLogId], map: "FK_2c202caa7fa60d4e690f1d2ab5d")
+}
+
+model terms {
+  id                              Int      @id @default(autoincrement()) @db.UnsignedTinyInt
+  creationTime                    DateTime @default(now()) @db.Timestamp(6)
+}
+
+model user {
+  id                   Int                    @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model userAddress {
+  id                 Int      @id @default(autoincrement()) @db.UnsignedInt
+  @@index([userId], map: "FK_8b251cbfcbf880bcdec80cf36c5")
+}
+
+model userAgreement {
+  id                              Int      @id @default(autoincrement()) @db.UnsignedInt
+}
+
+model userLocationRelation {
+  userId       Int      @db.UnsignedInt
+  @@id([userId, locationId])
+  @@index([locationId], map: "FK_bfdf9515dfadad9382f5329de87")
+}
+
+model userLog {
+  id            BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  @@index([userId], map: "FK_93d6e5c2b252a59e8765bb8bd82")
+}

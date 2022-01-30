@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/.prisma/purrsongProduction"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL_PURRSONG_PRODUCTION")
+}
+
+model errorLog {
+  id           BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  creationTime DateTime @default(now()) @db.DateTime(0)
+}
+
+model lavvieTagProduction {
+  id              Int      @id @default(autoincrement()) @db.UnsignedMediumInt
+  creationTime    DateTime @default(now()) @db.Timestamp(0)
+  updateTime      DateTime @default(now()) @db.Timestamp(0)
+}
+
+model lavviebotProduction {
+  id                                Int       @id @unique(map: "macAddr") @default(autoincrement()) @db.UnsignedMediumInt
+
+model lavviebotQC {
+  id                Int      @id @default(autoincrement()) @db.MediumInt
+  creationTime DateTime @db.DateTime(0)
+
+  @@index([creationTime], map: "creationTime")
+}
+
+model productionUpdateLog {
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt
+  creationTime DateTime @db.DateTime(0)
+
+  @@index([creationTime], map: "creationTime")
+}
+
+model successLog {
+  id           BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  creationTime DateTime @default(now()) @db.DateTime(0)
+
+  @@index([creationTime], map: "creationTime")
+  @@index([lavviebotId], map: "lavviebotId")
+  @@index([userId], map: "userId")
+}
+
+model lavvieScannerProduction {
+  id              Int      @id @default(autoincrement()) @db.UnsignedMediumInt
+  creationTime    DateTime @default(now()) @db.Timestamp(0)
+  updateTime      DateTime @default(now()) @db.Timestamp(0)
+}
